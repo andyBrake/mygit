@@ -1,0 +1,20 @@
+void *get()
+{
+	return;
+	}
+REQ_S * getReq(){
+}
+
+extern gggg();
+
+
+int getLunStatus(int x,
+         int y, void *arg)
+{
+	return;
+}
+
+/**xxx*/
+
+int g = 1;
+int ttt;

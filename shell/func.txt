@@ -1,0 +1,20 @@
+/* test func0 */
+int func0ABC(int a,
+	int b)
+
+void sadf (void s,
+int a)
+
+extern int a()
+{
+	return;
+	}
+/*
+req:xx
+*/
+REQ_S * genReq()
+{}
+
+
+
+
