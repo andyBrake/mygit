@@ -390,6 +390,7 @@ extern "C" {
 extern const unsigned long mwCounter;
 #endif
 
+#define DESC(x)   (1)
 /*
 ** System functions
 **  Normally, it is not nessecary to call any of these. MEMWATCH will

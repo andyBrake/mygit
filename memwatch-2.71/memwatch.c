@@ -406,6 +406,9 @@ static void		mwMutexLock( void );
 static void		mwMutexUnlock( void );
 #endif
 
+#if DESC("system function")
+
+#endif
 /***********************************************************************
 ** System functions
 ***********************************************************************/
