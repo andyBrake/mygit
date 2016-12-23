@@ -1,0 +1,20 @@
+
+void  $task_func(lunid_t lunId, void (*callBack)(void *arg, int32_t ret),  void* arg)
+{
+    int32_t result;
+    
+    if (checkLunPara(lunId, $inWorkCtrl))
+    {
+        callBack(arg, RETURN_ERROR);
+        return;
+    }
+    
+    result = generalLunTaskBuilder(lunId, $FLOW_NAME, NULL, 0, callBack, arg);
+    if (result != RETURN_OK)
+    {
+        callBack(arg, RETURN_ERROR);
+        return;
+    }
+    
+    return;
+}

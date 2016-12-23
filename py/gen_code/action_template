@@ -1,0 +1,11 @@
+int32_t $func_name(VOLS_TASK_S *task)
+{
+
+	  DBG_ASSERT(NULL != task);	  
+	  DBG_ASSERT($action_name == task->action[flag]);
+	  
+	  task->cmdRst = CMD_RST_OK;
+	  
+	  #error "input your code here"
+    return $isAsync;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>  
+<personlist>  
+	  <title name="huangfa test">
+	  </title>   
+    <person>  
+        <name aaa="xxxx">xiazdong-1</name>  
+        <age>20</age>  
+        <salary>1000</salary>  
+    </person>  
+    <person>  
+        <name>xiazdong-2</name>  
+        <age>21</age>  
+        <salary>2000</salary>  
+    </person>  
+</personlist> 

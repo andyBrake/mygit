@@ -1,0 +1,21 @@
+<flow name="startLunBgrTask">
+			<type>async</type>
+	    <action name="startLunTaskStep0">
+	    <type>sync</type>
+	    </action>
+		  <action name="startLunTaskStep1">
+		  <type>async</type>
+	    </action>
+	    <action name="startLunTaskStep2">
+		  <type>sync</type>
+	    </action>
+			<flow name="startVolBgrTask">	
+			<type>async</type>
+		      	<action name="startVolBgrTask0">
+		      	<type>sync</type>
+		      	</action>
+			</flow>
+			<action name="startLunTaskStep4">
+				<type>sync</type>
+				</action>																   
+</flow>
