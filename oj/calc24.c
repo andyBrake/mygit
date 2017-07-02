@@ -25,7 +25,7 @@ typedef struct tagINFO_S
 	char usedFlag[7][4];
 }INFO_S;
 
-int g_num[4] = {8,10,12,6};
+int g_num[4] = {8,2,9,1};
 int g_flag[4] = {0, 0, 0, 0};
 
 CALC_TYPE_E g_calc[4] = {0, 1, 2, 3};

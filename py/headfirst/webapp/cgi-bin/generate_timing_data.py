@@ -10,7 +10,11 @@ cgitb.enable()
 athletes = athletemodel.get_from_store()
 
 form_data = cgi.FieldStorage()
+
 athlete_name = form_data['which_athlete'].value
+
+if not athlete_name:
+    exit()
 
 print(yate.start_response())
 print(yate.include_header("coach kelly's timing data:"))
