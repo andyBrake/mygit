@@ -1,0 +1,89 @@
+import requests
+from bs4 import BeautifulSoup
+import re
+import csv
+
+import urllib.request as urlre
+
+res = requests.get("http://news.163.com")
+res.encoding='utf-8'
+
+html_doc = urlre.urlopen("http://www.mlr.gov.cn/tdsc/land/cjgs/zbcr/201705/t20170510_6342997.htm").read()
+soup = BeautifulSoup(html_doc)
+
+html_doc = html_doc.decode("utf-8")
+
+
+# pattern = re.compile(r'<td.*>地块编号.*</td>')
+#
+# findString = pattern.findall(html_doc)
+# #findString = findString.split("<")
+#
+# for str in findString:
+#     each = str.split("<")
+#     for a in each:
+#         print(a)
+
+
+print("-------------------------")
+# print(html_doc)
+# print("-------------------------")
+
+tag = soup.table
+# print(tag.name)
+# print(tag.attrs)
+#print(soup.name)
+
+# for child in tag.children:
+#     print(child)
+
+cnt = 0
+
+totalItem = []
+
+tables = soup.findAll('tr')
+for tab in tables:
+    if "地块编号" in tab.getText() and tab.getText().__len__() < 100:
+        ret = tab.getText().split(' ')
+        totalItem = totalItem + ret
+
+print(totalItem)
+
+with open('egg2.csv', 'w+') as csvfile:
+    spamwriter = csv.writer(csvfile, dialect='excel')
+    for x in range(int(totalItem.__len__() /5)) :
+        i = x * 8
+        spamwriter.writerow([totalItem[1+i], totalItem[2+i], totalItem[3+i], totalItem[4+i], totalItem[5 + i], totalItem[6 +i], totalItem[7+i]])
+    # print(ret[1], ret[2], ret[3], ret[4])
+
+        # for eachItem in ret:
+        #     print(eachItem)
+        #print("find table : %d" %cnt)
+        #cnt = cnt + 1
+
+    # for tr in tab.findAll('tr'):
+    #     for td in tr.findAll('td'):
+    #         if "地块编号" in td.getText():
+    #             print(td.next)
+                # print(td.parent.children[0])
+                # print(td.parent.children[1])
+                #print(td.parent)
+                #print(tr.getText())
+                # print(td.getText())
+
+
+print("---------------------")
+
+
+# with open('egg2.csv', 'w') as csvfile:
+#     spamwriter = csv.writer(csvfile, dialect='excel')
+#     spamwriter.writerow(['a', 1])
+    # spamwriter.writerow(['b', '3', '3', '6', '4'])
+    # spamwriter.writerow(['c', '7', '7', '10', '4'])
+    # spamwriter.writerow(['d', '11','11','11', '1'])
+    # spamwriter.writerow(['e', '12','12','14', '3'])
+
+#print(html_doc)
+#print(res.text)
+
+#soup = BeautifulSoup(res, "html.parser")

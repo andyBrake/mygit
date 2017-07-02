@@ -1,0 +1,98 @@
+# -*- coding=utf-8 -*-
+
+import urllib2
+import re
+import itertools
+import urlparse
+import robotparser
+
+meetUrl = 'http://www.meetup.com/'
+rootUrl = "http://example.webscraping.com/places/default/index"
+exampleUrl = 'http://example.webscraping.com/sitemap.xml'
+shortPath = 'http://example.webscraping.com/places/default/view/'
+
+user_agent = "GoodCrawler"
+
+def download(url, user_agent = 'wswp',num_retries = 2, save=True):
+    print("Downloading:%s"%url)
+    headers = {'User-agent': user_agent}
+    request = urllib2.Request(url, headers=headers)
+
+    try:
+        html = urllib2.urlopen(request).read()
+    except urllib2.URLError as e:
+        print ('Download error:%s'%e.reason)
+        html = None
+        if num_retries > 0:
+            if hasattr(e, 'code') and 500 <= e.code < 600:
+                return download(url, num_retries - 1)
+    if save:
+        file_name = "./download/save_" + str(url).split('/')[-1] + ".txt"
+        with open(file_name, "w+") as file:
+            file.write(html)
+    return html
+
+def crawl_sitemap(url):
+    #download the sitemap file
+    sitemap = download(url)
+    print "sitemap:\n", sitemap
+    #extract the sitemap links
+    links = re.findall('<loc>(.*?)</loc>', sitemap)
+    print links
+    #download each link
+    for link in links:
+        print "scrap link:"
+        html = download(link)
+
+def link_crawl(seek_url, link_regex):
+    max_depth = 2
+    crawl_queue = [seek_url]
+    seen = {}
+    seen[seek_url] = 0
+
+    while crawl_queue:
+        url = crawl_queue.pop()
+        if rp.can_fetch(user_agent, url):
+            depth = seen[url]
+            if depth != max_depth:
+                html = download(url)
+                #print 'get links from ', get_links(html)
+                for link in get_links(html):
+                    if re.search(link_regex, link):
+                        link = urlparse.urljoin(seek_url, link)
+                        if link not in seen:
+                            seen[link] = depth + 1
+                            crawl_queue.append(link)
+        else:
+            print("Blocked by robots.txt", url)
+
+def get_links(html):
+    webpage_regex = re.compile('<a[^>]+href=["\'](.*?)["\']', re.IGNORECASE)
+    return webpage_regex.findall(html)
+
+#download('http://httpstat.us/500')
+
+
+
+
+#download(meetUrl)
+#crawl_sitemap(exampleUrl)
+
+def short_crawl(shortPath):
+    for page in itertools.count(1):
+        url = shortPath + ("%d" % page)
+        html = download(url)
+        if html is None:
+            break
+        else :
+            print("get url %s success"%url)
+
+print("start to crawl")
+rp = robotparser.RobotFileParser()
+rp.set_url(rootUrl+"robots.txt")
+rp.read()
+
+#ht = download(rootUrl)
+#print ht
+link_crawl(rootUrl, 'view')
+
