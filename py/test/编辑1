@@ -1,0 +1,11 @@
+http://www.mlr.gov.cn/tdsc/land/cjgs/zbcr/201705/t20170510_6342997.htm
+http://www.mlr.gov.cn/tdsc/land/crgg/zbgg/201705/t20170506_6338642.htm
+
+
+起始价：
+保证金：
+成交价(
+
+
+#pattern = re.compile(r'^(?!.*tr)地块编号')
+#if pattern.search(tab.getText()):

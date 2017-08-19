@@ -1,28 +1,33 @@
-import requests
+# -*- coding:UTF-8 -*-
+
+#import urllib2
 from bs4 import BeautifulSoup
 import re
 import csv
+from downloader import Downloader
 
-import urllib.request as urlre
-
-res = requests.get("http://news.163.com")
-res.encoding='utf-8'
-
-html_doc = urlre.urlopen("http://www.mlr.gov.cn/tdsc/land/cjgs/zbcr/201705/t20170510_6342997.htm").read()
-soup = BeautifulSoup(html_doc)
-
-html_doc = html_doc.decode("utf-8")
+#import urllib.request as urlre
 
 
-# pattern = re.compile(r'<td.*>地块编号.*</td>')
-#
-# findString = pattern.findall(html_doc)
-# #findString = findString.split("<")
-#
-# for str in findString:
-#     each = str.split("<")
-#     for a in each:
-#         print(a)
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+
+url1 = 'http://www.mlr.gov.cn/tdsc/land/crgg/zbgg/201705/t20170506_6338642.htm'
+url2 = "http://www.mlr.gov.cn/tdsc/land/cjgs/zbcr/201705/t20170510_6342997.htm"
+
+# html = urllib2.urlopen(request).read()
+# res = requests.get("http://news.163.com")
+# res.encoding='utf-8'
+
+D = Downloader()
+html = D(url2)
+
+#html_doc = urlre.urlopen(url1).read()
+soup = BeautifulSoup(html, "html.parser")
+
+#html_doc = html_doc.decode("utf-8")
 
 
 print("-------------------------")
@@ -43,17 +48,20 @@ totalItem = []
 
 tables = soup.findAll('tr')
 for tab in tables:
-    if "地块编号" in tab.getText() and tab.getText().__len__() < 100:
+    #print tab
+    if "编号" in tab.getText() and tab.getText().__len__() < 100:
         ret = tab.getText().split(' ')
         totalItem = totalItem + ret
+        print "get one item", ret
 
-print(totalItem)
+#print(totalItem)
 
 with open('egg2.csv', 'w+') as csvfile:
     spamwriter = csv.writer(csvfile, dialect='excel')
-    for x in range(int(totalItem.__len__() /5)) :
-        i = x * 8
-        spamwriter.writerow([totalItem[1+i], totalItem[2+i], totalItem[3+i], totalItem[4+i], totalItem[5 + i], totalItem[6 +i], totalItem[7+i]])
+    for x in range(int(totalItem.__len__() /6)) :
+        i = x * 6
+        spamwriter.writerow([totalItem[1+i], totalItem[2+i], totalItem[3+i], totalItem[4+i] ])
+        #totalItem[3+i], totalItem[4+i], totalItem[5 + i], totalItem[6 +i], totalItem[7+i]])
     # print(ret[1], ret[2], ret[3], ret[4])
 
         # for eachItem in ret:

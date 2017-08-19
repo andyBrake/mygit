@@ -5,15 +5,23 @@ import re
 import itertools
 import urlparse
 import robotparser
+from bs4 import BeautifulSoup
+
+#import self module
+from downloader import Downloader
+from mongo_cache import MongoCache
 
 meetUrl = 'http://www.meetup.com/'
 rootUrl = "http://example.webscraping.com/places/default/index"
 exampleUrl = 'http://example.webscraping.com/sitemap.xml'
 shortPath = 'http://example.webscraping.com/places/default/view/'
 
+pageUrl = 'http://example.webscraping.com/places/default/view/Angola-7'
+
+
 user_agent = "GoodCrawler"
 
-def download(url, user_agent = 'wswp',num_retries = 2, save=True):
+def download(url, user_agent = 'wswp',num_retries = 2, save=False):
     print("Downloading:%s"%url)
     headers = {'User-agent': user_agent}
     request = urllib2.Request(url, headers=headers)
@@ -44,18 +52,26 @@ def crawl_sitemap(url):
         print "scrap link:"
         html = download(link)
 
-def link_crawl(seek_url, link_regex):
+def link_crawl(seek_url, link_regex, callback=None, cache=None):
     max_depth = 2
     crawl_queue = [seek_url]
     seen = {}
     seen[seek_url] = 0
+    links = []
 
     while crawl_queue:
         url = crawl_queue.pop()
         if rp.can_fetch(user_agent, url):
             depth = seen[url]
             if depth != max_depth:
-                html = download(url)
+                #html = download(url)
+                D = Downloader(cache=cache)
+                html = D(url)
+
+                #call cb function
+                if callback:
+                    links.extend(callback(url, html) or [])
+
                 #print 'get links from ', get_links(html)
                 for link in get_links(html):
                     if re.search(link_regex, link):
@@ -87,12 +103,47 @@ def short_crawl(shortPath):
         else :
             print("get url %s success"%url)
 
-print("start to crawl")
-rp = robotparser.RobotFileParser()
-rp.set_url(rootUrl+"robots.txt")
-rp.read()
+#get country and area info with beautiful soup moudle
+def getUseBs(html):
+    country = None
+    area = None
+    soup = BeautifulSoup(html, "html.parser")
+    tr = soup.find(attrs={'id':'places_area__row'})
+    if not tr:
+        return country, area
+    #print "tr",tr
+    td = tr.find(attrs={'class':'w2p_fw'})
+    #print "td",td
+    area = td.text
+    #print area
 
-#ht = download(rootUrl)
-#print ht
-link_crawl(rootUrl, 'view')
+    tr = soup.find(attrs={'id':'places_country__row'})
+    td = tr.find(attrs={'class':'w2p_fw'})
+    country = td.text
+
+    return country, area
+
+#link_crawl callback function, while crawl each webpage, this callback will be called.
+def showScrapInfo(url, html):
+    country, area = getUseBs(html)
+    if country and area:
+        print "country:", country, "area is ", area
+
+
+if __name__ == '__main__':
+    print("start to crawl")
+    rp = robotparser.RobotFileParser()
+    rp.set_url(rootUrl+"robots.txt")
+    rp.read()
+
+    mongoCache = MongoCache()
+
+    link_crawl(rootUrl, 'view', showScrapInfo, cache=None)
+
+#html = download(pageUrl)
+# ret = re.findall('<td class="w2p_fw">(.*?)</td>', html)
+# print ret
+# country, area = getUseBs(html)
+# print "country:", country, "area is ", area
+
 
