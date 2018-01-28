@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+<project name="Main_project" >
+    <root>project_root_path</root>
+	<raid>TRUE</raid>			
+	<burner>true</burner>												   
+</project>
+<project name="Bak_project" >
+    <root>bak_project_path</root>
+    <raid>FALSE</raid>
+    <burner>FALSE</burner>
+</project>
+</config>   
