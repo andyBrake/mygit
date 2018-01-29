@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <config>
 <project name="Main_project" >
-    <root>project_root_path</root>
+    <root>C:\Users\huangfa\workspace\gitProject\dualcore\</root>
 	<raid>TRUE</raid>			
-	<burner>true</burner>												   
+	<burner>true</burner>
+    <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>
 </project>
 <project name="Bak_project" >
-    <root>bak_project_path</root>
+    <root>C:\Users\huangfa\workspace\ArtemisPlus\Validation\FW\branches\dualcore\</root>
     <raid>FALSE</raid>
     <burner>FALSE</burner>
 </project>
