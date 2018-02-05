@@ -4,14 +4,26 @@ import xml_utils
 
 if __name__ == '__main__':
     cfg = None
-    compile = None
+    cmp = None
 
-    for project_name, root_path, raid, burner, firepath in xml_utils.iter_pro():
+    #only get the first enable project to process
+    for project_name,enable, root_path, raid, burner, firepath in xml_utils.iter_pro():
+        if not enable:
+            print("project %s is not enable, skip it."%project_name)
+            continue
+
         cfg = config.Config (project_name, root_path, raid, burner, firepath)
-        compile = cmpl.Cmpl(cfg)
-        #break
+        cmp = cmpl.Cmpl(cfg)
+        break
 
-    cfg.show()
-    #only test one compiler
-    compile.compile()
-    #compile.show()
+    #start to process the project
+    print("=======================================================================")
+
+    #cmp.compile()
+    #cmp.show()
+
+    #cmp.start_to_adjust()
+    cmp.fix_addr2ftk()
+
+
+    print("=======================================================================")

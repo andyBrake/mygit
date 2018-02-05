@@ -29,6 +29,7 @@ def iter_pro():
       if ("project" == element.tag.lower()):
         #print("%s name is %s, type is %s." %(element.tag, element.get("name"), element.find("root")))
         project_name = element.get("name")
+        enable = (element.find("enable").text.lower() == 'true')
         root_path = element.find("root").text
         raid = (element.find("raid").text.lower() == 'true')
         burner = (element.find("burner").text.lower() == 'true')
@@ -37,7 +38,7 @@ def iter_pro():
         else:
             firepath = None
         #print("project name %s, path %s, support raid %s, need burner %s."%(project_name, root_path, raid, burner))
-        yield (project_name, root_path, raid, burner, firepath)
+        yield (project_name,enable, root_path, raid, burner, firepath)
 
 if __name__ == '__main__':
     print("list all")
