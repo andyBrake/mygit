@@ -1,15 +1,22 @@
 <?xml version="1.0"?>
 <config>
 <project name="Main_project" >
+    <root>C:\Users\huangfa\workspace\gitProject\dualcore\</root>
+    <enable>true</enable>
+	<raid>true</raid>
+	<burner>true</burner>
+    <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>
+</project>
+<project name="Sec_project" >
     <root>C:\Users\huangfa\workspace\base_dualcore\</root>
     <enable>false</enable>
 	<raid>true</raid>
-	<burner>false</burner>
+	<burner>true</burner>
     <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>
 </project>
 <project name="Bak_project" >
     <root>C:\Users\huangfa\workspace\4.5.0.66.109024\</root>
-    <enable>true</enable>
+    <enable>false</enable>
     <raid>true</raid>
     <burner>FALSE</burner>
     <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>

@@ -3,7 +3,7 @@
 
 import sys
 
-fileName = "startLunBgrTask_flow.xml"
+fileName = "cfg.xml"
 
 try:
   import xml.etree.cElementTree as ET
@@ -33,7 +33,7 @@ def iter_pro():
         root_path = element.find("root").text
         raid = (element.find("raid").text.lower() == 'true')
         burner = (element.find("burner").text.lower() == 'true')
-        if element.find("fire"):
+        if burner:
             firepath = element.find("fire").text
         else:
             firepath = None

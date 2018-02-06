@@ -68,5 +68,7 @@ class Config():
         print("\timage path %s"%self.__image)
         print("\tbin0 path %s"%self.__bin0)
         print("\tbin1 path %s"%self.__bin1)
+        if self.__firepath:
+            print("\tfired fw path %s"%self.__firepath)
         print("config info end\n")
 

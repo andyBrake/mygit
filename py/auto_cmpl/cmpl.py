@@ -18,11 +18,11 @@ class Cmpl():
         os.chdir(self.__cfg.get_root())
 
         print(
-            "\n-------------start to generate image------------\n"
+            "\n-------------start to generate image--------------------------\n"
             "\tdir : " + os.getcwd() +
-            "\n------------------------------------------------")
-        print(time.strftime("build start time: %Y-%m-%d-%H:%M:%S", time.localtime()))
-        print("------------------------------------------------")
+            "\n--------------------------------------------------------------")
+        print(time.strftime("\tbuild start time: %Y-%m-%d-%H:%M:%S", time.localtime()))
+        print("--------------------------------------------------------------")
 
         start_clk = time.clock()
 
@@ -62,7 +62,7 @@ class Cmpl():
         if self.__cfg.get_firepath():
             self.__bak_and_copy_bin_file()
 
-        print("this build %s!" % (self.last_build_time))
+        print("this build %s" % (self.last_build_time))
         start_clk = time.clock() - start_clk
         print("use second %f" % start_clk)
 
@@ -410,7 +410,7 @@ class Cmpl():
         for key in seg_info_table :
             #print("key %s, old addr [%s], new addr [%s]"%(key, seg_info[key], new_info[key]))
             if (key in KEY_NAME) and (seg_info_table[key] != new_seg_info_table[key]) :
-                print("\tunmatch-key %s %s %s"%(key, seg_info[key], new_info[key]))
+                print("\tunmatch-key %s %s %s"%(key, seg_info_table[key], new_seg_info_table[key]))
                 misMatch = True
                 break
 
