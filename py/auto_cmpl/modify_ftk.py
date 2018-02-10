@@ -2,6 +2,8 @@ import cmpl
 import config
 import xml_utils
 
+
+
 if __name__ == '__main__':
     cfg = None
     cmp = None
@@ -21,14 +23,6 @@ if __name__ == '__main__':
         exit(0)
     #start to process the project
     print("=======================================================================")
-
-    cmp.compile()
-    #cmp.show()
-    if not cmp.build_ok():
-        cmp.start_to_adjust()
-
     #modify the ftk file, after modify, must build again
-    #cmp.fix_addr2ftk()
-
-
+    cmp.fix_addr2ftk()
     print("=======================================================================")

@@ -12,10 +12,18 @@ class Config():
         self.__build = self.__root + "build\\"
         self.__bin0 = self.__build + "_out_2T_3D_0\\ASIC_NVME_FTL\\Rel\\bin\\"
         self.__bin1 = self.__build + "_out_2T_3D_1\\ASIC_NVME_FTL\\Rel\\bin\\"
+        self.__lst_filename = "Artemis2_ASIC_NVME_FTL.lst"
+        self.__ftk = self.__build + "Image_creator\\Artemis_dual_core_firmware_package\\nvme_firmware\\"
+        #temp output dir
+        self.out_dir = [self.__build + '_out_2T_3D_0', self.__build + '_out_2T_3D_1', self.__build + '_out_2T_2D_0', self.__build + '_out_2T_2D_1',
+                self.__build + "_feedback"]
+
         if raid:
             self.__image = self.__root + "nvme_B0_image_raid\\"
+            self.__ftk_filename = "config_firmware_nvme_2TB_raid_ftk.txt"
         else:
             self.__image = self.__root + "nvme_B0_image\\"
+            self.__ftk_filename = "config_firmware_nvme_2TB_ftk.txt"
 
     def get_root(self):
         return self.__root
@@ -38,13 +46,29 @@ class Config():
     def get_bin1(self):
         return self.__bin1
 
+    def get_lst_file_name(self):
+        return self.__lst_filename
+
+    def get_lst0_file(self):
+        return self.__bin0 + self.__lst_filename
+
+    def get_lst1_file(self):
+        return self.__bin1 + self.__lst_filename
+
+    def get_ftk_file(self):
+        return self.__ftk + self.__ftk_filename
+
     def show(self):
-        print("project name %s"%(self.__name))
-        print("root path %s"%(self.__root))
-        print("support raid %s "%(self.__raid))
-        print("support burner %s"%(self.__burner))
-        print("build path %s"%self.__build)
-        print("image path %s"%self.__image)
-        print("bin0 path %s"%self.__bin0)
-        print("bin1 path %s"%self.__bin1)
+        print("show config info:")
+        print("\tproject name %s"%(self.__name))
+        print("\troot path %s"%(self.__root))
+        print("\tsupport raid %s "%(self.__raid))
+        print("\tsupport burner %s"%(self.__burner))
+        print("\tbuild path %s"%self.__build)
+        print("\timage path %s"%self.__image)
+        print("\tbin0 path %s"%self.__bin0)
+        print("\tbin1 path %s"%self.__bin1)
+        if self.__firepath:
+            print("\tfired fw path %s"%self.__firepath)
+        print("config info end\n")
 
