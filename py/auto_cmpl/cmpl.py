@@ -78,16 +78,20 @@ class Cmpl():
         # to show section info
 
     def __filter_comp_result(self):
-        warning0 = 'Warning: C9931W:'
-        warning1 = 'Warning: A9931W:'
-        warning2 = 'Warning: L9931W:'
+        warnings = ['Warning: C9931W:', 'Warning: A9931W:', 'Warning: L9931W:', 'Warning: C9560I:', 'Warning: C4052E:' ]
 
         os.chdir(self.__cfg.get_build())
         with open('../build_result.txt', 'r') as f:
             with open('../fitered_result.txt', 'w') as g:
                 for line in f.readlines():
-                    if warning0 not in line and warning1 not in line and warning2 not in line:
+                    ignore = False
+                    for warn in warnings:
+                        if warn in line:
+                            ignore = True
+                            break
+                    if not ignore:
                         g.write(line)
+
         os.chdir(self.__cur_dir)
         return
 
@@ -204,7 +208,9 @@ class Cmpl():
 
     #calc the right section size for each segment
     def start_to_adjust(self):
-        self.gen_size_file(self.base_file_name)
+        ret = self.gen_size_file(self.base_file_name)
+        if ret != 0:
+            return 1
 
         self.adjust_section_size(self.base_file_name)
         return 0
@@ -212,6 +218,10 @@ class Cmpl():
     def gen_size_file(self, tag_file_name):
         lst0 = self.__cfg.get_bin0() + self.__cfg.get_lst_file_name()
         lst1 = self.__cfg.get_bin1() + self.__cfg.get_lst_file_name()
+
+        if (not os.path.exists(lst0)) or (not os.path.exists(lst1)) :
+            print("lst file not generate, compile may meet error.")
+            return 1
 
         tag_file = open(tag_file_name, "w+")
 
@@ -222,7 +232,7 @@ class Cmpl():
         self.__rec_one_file(lst1, tag_file)
 
         tag_file.close()
-        return
+        return 0
 
     def __rec_one_file(self, file_name, tag_file):
         P1 = 'Load Region '
