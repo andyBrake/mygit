@@ -2,7 +2,7 @@
 <config>
 <project name="Main_project" >
     <root>C:\Users\huangfa\workspace\gitProject\dualcore\</root>
-    <enable>true</enable>
+    <enable>false</enable>
 	<raid>true</raid>
 	<burner>true</burner>
     <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>
@@ -14,8 +14,15 @@
 	<burner>true</burner>
     <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>
 </project>
-<project name="Bak_project" >
-    <root>C:\Users\huangfa\workspace\4.5.0.66.109024\</root>
+<project name="SVN_project" >
+    <root>C:\Users\huangfa\workspace\4.5.0.69.109415\</root>
+    <enable>true</enable>
+    <raid>true</raid>
+    <burner>True</burner>
+    <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>
+</project>
+<project name="Trunk1" >
+    <root>C:\Users\huangfa\workspace\trunk_code\trunk1\</root>
     <enable>false</enable>
     <raid>true</raid>
     <burner>FALSE</burner>

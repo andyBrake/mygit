@@ -30,7 +30,8 @@ class Cmpl():
         self.__rm_old_image()
         print("remove old axf file success!\n")
         os.chdir(self.__cfg.get_build())
-        os.system("python build_clean.py")
+        #os.system("python build_clean.py")
+        self.build_clean()
 
         # build
 
