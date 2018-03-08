@@ -2,3 +2,5 @@
 *.swp
 
 *.out
+/py/auto_cmpl/.idea
+/py/.idea
