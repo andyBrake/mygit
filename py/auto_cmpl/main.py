@@ -44,6 +44,7 @@ def get_cfg():
     return cfg, cmp
 
 if __name__ == '__main__':
+    ret = True
     cfg, cmp = get_cfg()
 
     if cmp == None or cfg == None:
@@ -53,7 +54,8 @@ if __name__ == '__main__':
     print("=======================================================================")
     cmp.compile()
     if not cmp.build_ok():
+        ret = False
         cmp.start_to_adjust()
     print("=======================================================================")
 
-    notify()
+    notify(ret)

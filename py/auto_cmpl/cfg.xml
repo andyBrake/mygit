@@ -28,4 +28,11 @@
     <burner>FALSE</burner>
     <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>
 </project>
+<project name="Trunk2" >
+    <root>C:\Users\huangfa\workspace\trunk_code\trunk2\</root>
+    <enable>true</enable>
+    <raid>true</raid>
+    <burner>FALSE</burner>
+    <fire>C:\Users\huangfa\workspace\firmware_version\fireinto\FW\nvme_B0_image\</fire>
+</project>
 </config>   
